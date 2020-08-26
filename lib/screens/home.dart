@@ -52,7 +52,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           backgroundColor: Colors.lightBlueAccent,
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddTodo()));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddTodo(
+                          todoID: -1,
+                        )));
           },
           child: Icon(Icons.note_add_outlined)),
     );

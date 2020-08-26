@@ -5,9 +5,21 @@ import 'package:todo_flutter/models/todo.dart';
 
 class TodoProvider extends ChangeNotifier {
   final List<Todo> _todos = [
-    Todo(title: "First todo in the list"),
-    Todo(title: "Second todo in the list"),
-    Todo(title: "Done with todo list")
+    Todo(
+        todoID: 1,
+        title: "First todo in the list",
+        createdDate: DateTime.now(),
+        lastUpdatedDate: DateTime.now()),
+    Todo(
+        todoID: 2,
+        title: "Second todo in the list",
+        createdDate: DateTime.now(),
+        lastUpdatedDate: DateTime.now()),
+    Todo(
+        todoID: 3,
+        title: "Done with todo list",
+        createdDate: DateTime.now(),
+        lastUpdatedDate: DateTime.now())
   ];
 
   //ensure that our getters can not be manipulated in any way from outside

@@ -4,6 +4,11 @@ import 'package:todo_flutter/models/todo.dart';
 import 'package:todo_flutter/providers/todo_provider.dart';
 
 class AddTodo extends StatefulWidget {
+  final int todoID;
+  bool get isEditing => todoID != -1;
+
+  const AddTodo({Key key, this.todoID}) : super(key: key);
+
   @override
   _AddTodoState createState() => _AddTodoState();
 }
@@ -22,7 +27,11 @@ class _AddTodoState extends State<AddTodo> {
     final String text = todoTitleController.text;
     final bool completed = isCompleted;
     if (text.isNotEmpty) {
-      final Todo todo = Todo(title: text, completed: completed);
+      final Todo todo = Todo(
+          title: text,
+          completed: completed,
+          createdDate: DateTime.now(),
+          lastUpdatedDate: DateTime.now());
       Provider.of<TodoProvider>(context, listen: false).addTodo(todo);
       Navigator.pop(context);
     }
@@ -31,7 +40,8 @@ class _AddTodoState extends State<AddTodo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Add task")),
+      appBar:
+          AppBar(title: Text(widget.isEditing ? "Edit Todo" : "Add Todo")),
       body: ListView(
         children: <Widget>[
           Padding(
@@ -39,14 +49,23 @@ class _AddTodoState extends State<AddTodo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                TextField(controller: todoTitleController),
+                TextField(
+                  controller: todoTitleController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Enter the todo item"),
+                ),
                 CheckboxListTile(
                     value: isCompleted,
                     onChanged: (checked) => setState(() {
                           isCompleted = checked;
                         }),
                     title: Text("Is completed?")),
-                RaisedButton(child: Text("Add"), onPressed: onAdd)
+                RaisedButton(
+                  child: Icon(Icons.add),
+                  onPressed: onAdd,
+                  color: Colors.lightBlueAccent,
+                )
               ],
             ),
           )
